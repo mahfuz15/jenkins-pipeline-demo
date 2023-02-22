@@ -33,19 +33,19 @@ pipeline {
     
     post {
         always {
-            node(label: 'any') {
+            steps {
                 sh 'docker logout'
             }
         }
         
         success {
-            node(label: 'any') {
+            steps {
                 sh 'echo "Docker image build and push successful!"'
             }
         }
         
         failure {
-            node(label: 'any') {
+            steps {
                 sh 'echo "Docker image build or push failed!"'
             }
         }
