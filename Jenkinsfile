@@ -9,9 +9,7 @@ pipeline {
     
     stages {
         stage('Checkout') {
-            agent {
-                label 'docker'
-            }
+            agent any
             steps {
                 git branch: 'main', url: 'https://github.com/mahfuz15/jenkins-pipeline-demo.git'
             }
@@ -35,19 +33,19 @@ pipeline {
     
     post {
         always {
-            node(label: 'docker') {
+            node(label: 'any') {
                 sh 'docker logout'
             }
         }
         
         success {
-            node(label: 'docker') {
+            node(label: 'any') {
                 sh 'echo "Docker image build and push successful!"'
             }
         }
         
         failure {
-            node(label: 'docker') {
+            node(label: 'any') {
                 sh 'echo "Docker image build or push failed!"'
             }
         }
